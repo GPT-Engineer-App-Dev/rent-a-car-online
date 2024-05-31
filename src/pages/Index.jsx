@@ -1,5 +1,5 @@
 import { Box, Button, Container, Flex, Heading, HStack, SimpleGrid, Text, VStack, Input, Select, Button as ChakraButton } from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 
@@ -10,9 +10,12 @@ const Index = () => {
   const [dropoffDate, setDropoffDate] = useState("");
   const [carType, setCarType] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSearch = () => {
-    console.log("Search submitted:", { pickupLocation, dropoffLocation, pickupDate, dropoffDate, carType });
-    // Add logic to fetch and display available cars based on the search criteria
+    const bookingDetails = { pickupLocation, dropoffLocation, pickupDate, dropoffDate, carType };
+    console.log("Search submitted:", bookingDetails);
+    navigate("/booking-confirmation", { state: bookingDetails });
   };
   return (
     <Container maxW="container.xl" p={0}>
