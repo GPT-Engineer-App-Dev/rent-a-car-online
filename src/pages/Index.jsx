@@ -1,7 +1,19 @@
-import { Box, Button, Container, Flex, Heading, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, Heading, HStack, SimpleGrid, Text, VStack, Input, Select, Button as ChakraButton } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 
+import { useState } from "react";
+
 const Index = () => {
+  const [pickupLocation, setPickupLocation] = useState("");
+  const [dropoffLocation, setDropoffLocation] = useState("");
+  const [pickupDate, setPickupDate] = useState("");
+  const [dropoffDate, setDropoffDate] = useState("");
+  const [carType, setCarType] = useState("");
+
+  const handleSearch = () => {
+    console.log("Search submitted:", { pickupLocation, dropoffLocation, pickupDate, dropoffDate, carType });
+    // Add logic to fetch and display available cars based on the search criteria
+  };
   return (
     <Container maxW="container.xl" p={0}>
       {/* Navigation Bar */}
@@ -19,7 +31,18 @@ const Index = () => {
       <Box bg="gray.900" color="white" py={20} textAlign="center">
         <Heading size="2xl" mb={4}>Rent Your Dream Car</Heading>
         <Text fontSize="xl" mb={6}>Explore our wide range of cars and find the perfect one for you.</Text>
-        <Button as={RouterLink} to="/services" colorScheme="teal" size="lg">Rent a Car Now</Button>
+        <VStack spacing={4} mb={6} align="stretch">
+          <Input placeholder="Pick-up Location" value={pickupLocation} onChange={(e) => setPickupLocation(e.target.value)} />
+          <Input placeholder="Drop-off Location" value={dropoffLocation} onChange={(e) => setDropoffLocation(e.target.value)} />
+          <Input type="date" placeholder="Pick-up Date" value={pickupDate} onChange={(e) => setPickupDate(e.target.value)} />
+          <Input type="date" placeholder="Drop-off Date" value={dropoffDate} onChange={(e) => setDropoffDate(e.target.value)} />
+          <Select placeholder="Car Type" value={carType} onChange={(e) => setCarType(e.target.value)}>
+            <option value="sedan">Sedan</option>
+            <option value="suv">SUV</option>
+            <option value="hatchback">Hatchback</option>
+          </Select>
+        </VStack>
+        <ChakraButton colorScheme="teal" size="lg" onClick={handleSearch}>Search</ChakraButton>
       </Box>
 
       {/* Featured Cars Section */}
